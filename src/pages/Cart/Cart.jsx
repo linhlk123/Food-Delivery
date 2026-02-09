@@ -1,11 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
-import { food_list } from "../../assets/assets";
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart } =
+  const { cartItems, food_list, removeFromCart, getTotalfromCart } =
     React.useContext(StoreContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    // xóa /cart thay đổi thành /placeorder
+    navigate("/placeorder");
+  }
 
   return (
     <div className="cart">
@@ -39,17 +45,31 @@ const Cart = () => {
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>
-            Cart Total: $
-            {food_list
-              .reduce((total, item) => {
-                if (cartItems[item._id] > 0) {
-                  return total + item.price * cartItems[item._id];
-                }
-                return total;
-              }, 0)
-              .toFixed(2)}
-          </h2>
+          <div>
+            <div className="cart-total-details">
+              <p>Subtotal</p>
+              <p>{getTotalfromCart().toFixed(2)}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <p>Delivery Fee</p>
+              <p>{2}</p>
+            </div>
+            <hr />
+            <div className="cart-total-details">
+              <p>Total</p>
+              <b>{(getTotalfromCart() + 2).toFixed(2)}</b>
+            </div>
+            <button onClick={handleSubmit}>Proceed to Checkout</button>
+          </div>
+          <div className="cart-promocode">
+            <div><h3>Have a promocode?</h3>
+              <div className="cart-promocode-input">
+                <input type="text" placeholder="Enter your code here"/>
+                <button>Apply</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
