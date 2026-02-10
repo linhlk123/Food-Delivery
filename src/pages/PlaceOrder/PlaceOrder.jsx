@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StoreContext } from '../../context/StoreContext'
 import './PlaceOrder.css'
 const PlaceOrder = () => {
-  const { getTotalfromCart, cartItems } = React.useContext(StoreContext);
+  const { getTotalfromCart } = React.useContext(StoreContext);
   const [paymentMethod, setPaymentMethod] = useState('cod');
 
   return (
