@@ -9,6 +9,9 @@ import com.foodapp.food_delivery_backend.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
-    boolean existsByName(String name);
-    Optional<User> findByName(String name);
+    boolean existsByEmail(String email);
+
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findById(String id);
 }
